@@ -44,8 +44,7 @@ def __get_val(v):
 
 
 def print_var(*vs):
-    for v in vs:
-        __print_var_aux(v)
+    __print_var_aux(vs)
 
 
 def __print_var_aux(v, tabs=0, v_in_dict=False):
@@ -60,13 +59,19 @@ def __print_var_aux(v, tabs=0, v_in_dict=False):
                 __print_var_aux(elems,tabs + 1, True)
             print(tabs * tabulation + "}")
     elif type(v) is list or type(v) is tuple:
-        if len(v) == 0 : print("[]")
+        if type(v) is list:
+            char_start = "["
+            char_end = "]"
+        else:
+            char_start = "("
+            char_end = ")"
+        if len(v) == 0 : print(char_start+char_end)
         else:
             if v_in_dict : print("")
-            print(tabs * tabulation + "[")
+            print(tabs * tabulation + char_start)
             for elem_list in v:
                 __print_var_aux(elem_list,tabs + 1, False)
-            print(tabs * tabulation + "]")
+            print(tabs * tabulation + char_end)
     else:
 
         tabs_str = "" if v_in_dict else tabs * tabulation
